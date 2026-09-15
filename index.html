@@ -1,7 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="ru">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>🎮 MINI GAME HUB</title>
@@ -9,219 +13,369 @@
 <style>
 
 * {
+
     box-sizing: border-box;
+
 }
 
 body {
+
     margin: 0;
+
     min-height: 100vh;
+
     font-family: Arial, sans-serif;
+
     background: linear-gradient(135deg, #080817, #171735, #080817);
+
     color: white;
+
     text-align: center;
+
 }
 
 header {
+
     padding: 35px 20px 15px;
+
 }
 
 header h1 {
+
     font-size: 46px;
+
     margin: 10px;
-    text-shadow: 0 0 20px rgba(255,255,255,0.5);
+
 }
 
 header p {
+
     color: #aaa;
+
     font-size: 18px;
+
 }
 
 #menu {
+
     max-width: 900px;
+
     margin: auto;
+
     padding: 20px;
+
 }
 
 .games {
+
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
+
     gap: 20px;
+
     margin-top: 30px;
+
 }
 
 .game-card {
+
     padding: 28px 20px;
+
     min-height: 170px;
+
     border-radius: 22px;
+
     background: rgba(255,255,255,0.08);
+
     border: 1px solid rgba(255,255,255,0.15);
+
     cursor: pointer;
+
     transition: 0.2s;
+
 }
 
 .game-card:hover {
+
     transform: translateY(-6px);
+
     background: rgba(255,255,255,0.14);
+
 }
 
 .game-icon {
+
     font-size: 48px;
+
 }
 
 .game-card h2 {
+
     margin: 12px 0 6px;
+
 }
 
 .game-card p {
+
     margin: 0;
+
     color: #aaa;
+
 }
 
 .game-screen {
+
     display: none;
+
     max-width: 900px;
+
     margin: auto;
+
     padding: 30px 20px;
+
 }
 
 .game-screen h1 {
+
     font-size: 38px;
+
 }
 
 button {
+
     padding: 13px 22px;
+
     margin: 8px;
+
     border: none;
+
     border-radius: 12px;
+
     font-size: 17px;
+
     font-weight: bold;
+
     cursor: pointer;
+
 }
 
 button:hover {
+
     transform: scale(1.04);
+
+}
+
+button:disabled {
+
+    opacity: 0.7;
+
+    cursor: not-allowed;
+
 }
 
 .back-button {
+
     background: #333;
+
     color: white;
+
 }
 
 .restart-button {
+
     background: white;
+
     color: #111;
+
 }
 
 .stat {
+
     font-size: 22px;
+
     margin: 12px;
+
 }
 
 #catchField {
+
     width: 600px;
+
     max-width: 95%;
+
     height: 400px;
+
     margin: 25px auto;
+
     position: relative;
+
     overflow: hidden;
+
     border: 2px solid rgba(255,255,255,0.3);
+
     border-radius: 18px;
+
     background: rgba(255,255,255,0.04);
+
 }
 
 #square {
+
     width: 55px;
+
     height: 55px;
+
     position: absolute;
+
     left: 0;
+
     top: 0;
+
     background: #3498ff;
+
     border-radius: 12px;
+
     cursor: pointer;
+
     box-shadow: 0 0 20px #3498ff;
+
 }
 
 input {
+
     width: 220px;
+
     padding: 14px;
+
     border: none;
+
     border-radius: 10px;
+
     font-size: 18px;
+
     text-align: center;
+
 }
 
 #guessResult {
+
     min-height: 40px;
+
 }
 
 #memory {
+
     max-width: 500px;
+
     margin: 25px auto;
+
     display: grid;
+
     grid-template-columns: repeat(4, 1fr);
+
     gap: 10px;
+
 }
 
 .card {
+
     height: 90px;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     background: white;
+
     color: black;
+
     border-radius: 14px;
+
     font-size: 35px;
+
     cursor: pointer;
+
 }
 
 #reactionButton {
+
     min-width: 230px;
+
     min-height: 80px;
+
     font-size: 25px;
+
 }
 
 #reactionText {
+
     min-height: 40px;
+
     font-size: 24px;
+
 }
 
 #records {
+
     margin-top: 35px;
+
     padding: 20px;
+
     border-radius: 18px;
+
     background: rgba(255,255,255,0.06);
+
 }
 
 .record-line {
+
     margin: 8px;
+
     color: #ddd;
+
 }
 
 @media (max-width: 600px) {
 
     header h1 {
+
         font-size: 34px;
+
     }
 
     .games {
+
         grid-template-columns: 1fr;
+
     }
 
     .game-screen h1 {
+
         font-size: 30px;
+
     }
 
     #catchField {
+
         height: 350px;
+
     }
 
     .card {
+
         height: 70px;
+
         font-size: 28px;
+
     }
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -229,32 +383,50 @@ input {
 <div id="menu">
 
 <header>
+
     <h1>🎮 MINI GAME HUB</h1>
+
     <p>Четыре игры. Один портал. Проверь свои навыки.</p>
+
 </header>
 
 <div class="games">
 
-    <div class="game-card" id="catchCard">
+    <div class="game-card" data-game="catchGame">
+
         <div class="game-icon">🟦</div>
+
         <h2>Лови квадрат</h2>
+
         <p>Набери как можно больше очков.</p>
+
     </div>
 
-    <div class="game-card" id="guessCard">
+    <div class="game-card" data-game="guessGame">
+
         <div class="game-icon">🔢</div>
+
         <h2>Угадай число</h2>
+
         <p>Найди загаданное число от 1 до 100.</p>
+        <div class="game-card" data-game="memoryGame">
+
+        <div class="game-icon">🧠</div>
+
+        <h2>Память</h2>
+
+        <p>Найди все одинаковые пары.</p>
+
     </div>
 
-    <div class="game-card" id="memoryCard">
-        <div class="game-icon">🧠</div>
-        <h2>Память</h2>
-        <p>Найди все одинаковые пары.</p>
-    </div>
-    <div class="game-icon">⚡</div>
+    <div class="game-card" data-game="reactionGame">
+
+        <div class="game-icon">⚡</div>
+
         <h2>Реакция</h2>
+
         <p>Проверь скорость своей реакции.</p>
+
     </div>
 
 </div>
@@ -264,40 +436,60 @@ input {
     <h2>🏆 Рекорды</h2>
 
     <div class="record-line">
+
         🟦 Лови квадрат:
+
         <span id="catchRecord">0</span>
+
     </div>
 
     <div class="record-line">
+
         ⚡ Реакция:
+
         <span id="reactionRecord">—</span>
+
     </div>
-    <div id="catchGame" class="game-screen">
+
+</div>
+
+</div>
+
+<div id="catchGame" class="game-screen">
 
     <h1>🟦 Лови квадрат</h1>
 
     <div class="stat">
+
         Очки: <span id="score">0</span>
+
     </div>
 
     <div class="stat">
+
         Время: <span id="time">30</span> сек.
+
     </div>
 
     <div id="catchField">
+
         <div id="square"></div>
+
     </div>
 
-    <button class="restart-button" id="restartCatchButton">
+    <button class="restart-button" id="restartCatch">
+
         🔄 Начать заново
+
     </button>
 
-    <button class="back-button" id="backCatchButton">
+    <button class="back-button backMenu">
+
         ⬅️ В меню
+
     </button>
 
 </div>
-
 
 <div id="guessGame" class="game-screen">
 
@@ -306,31 +498,42 @@ input {
     <p>Я загадал число от 1 до 100.</p>
 
     <input
+
         id="guessInput"
+
         type="number"
+
         min="1"
+
         max="100"
+
         placeholder="Введи число"
+
     >
 
     <br>
 
-    <button id="checkGuessButton">
+    <button id="checkGuess">
+
         🔍 Проверить
+
     </button>
 
     <h2 id="guessResult"></h2>
 
-    <button class="restart-button" id="newGuessButton">
+    <button class="restart-button" id="newGuess">
+
         🔄 Новое число
+
     </button>
 
-    <button class="back-button" id="backGuessButton">
+    <button class="back-button backMenu">
+
         ⬅️ В меню
+
     </button>
 
 </div>
-
 
 <div id="memoryGame" class="game-screen">
 
@@ -340,445 +543,713 @@ input {
 
     <div id="memory"></div>
 
-    <button class="restart-button" id="restartMemoryButton">
+    <button class="restart-button" id="restartMemory">
+
         🔄 Начать заново
+
     </button>
 
-    <button class="back-button" id="backMemoryButton">
+    <button class="back-button backMenu">
+
         ⬅️ В меню
+
     </button>
 
 </div>
-
 
 <div id="reactionGame" class="game-screen">
 
     <h1>⚡ Проверь реакцию</h1>
 
     <p id="reactionText">
+
         Нажми «Старт» и жди сигнала.
+
     </p>
 
     <button id="reactionButton">
+
         🚀 Старт
+
     </button>
 
     <br>
 
-    <button class="back-button" id="backReactionButton">
+    <button class="back-button backMenu">
+
         ⬅️ В меню
+
     </button>
 
 </div>
-    <script>
+
+<script>
 
 let score = 0;
+
 let time = 30;
-let timer = null;
-let started = false;
+
+let catchTimer = null;
+
+let catchStarted = false;
 
 let secretNumber = 0;
 
 let reactionStart = 0;
+
 let reactionTimer = null;
 
-let catchRecord = Number(localStorage.getItem("catchRecord")) || 0;
-let reactionRecord = Number(localStorage.getItem("reactionRecord")) || 0;
+let reactionWaiting = false;
 
+let catchRecord =
 
-document.getElementById("catchRecord").textContent = catchRecord;
+    Number(localStorage.getItem("catchRecord")) || 0;
+
+let reactionRecord =
+
+    Number(localStorage.getItem("reactionRecord")) || 0;
+
+document.getElementById("catchRecord").textContent =
+
+    catchRecord;
 
 if (reactionRecord > 0) {
-    document.getElementById("reactionRecord").textContent =
-        reactionRecord + " мс";
-}
 
+    document.getElementById("reactionRecord").textContent =
+
+        reactionRecord + " мс";
+
+}
 
 function showGame(gameId) {
 
     document.getElementById("menu").style.display = "none";
 
     document.querySelectorAll(".game-screen").forEach(function(screen) {
+
         screen.style.display = "none";
+
     });
 
     document.getElementById(gameId).style.display = "block";
-}
 
+}
 
 function backToMenu() {
 
-    clearInterval(timer);
+    clearInterval(catchTimer);
+
     clearTimeout(reactionTimer);
 
-    started = false;
+    catchStarted = false;
+
+    reactionWaiting = false;
+
+    let reactionButton =
+
+        document.getElementById("reactionButton");
+
+    reactionButton.disabled = false;
+
+    reactionButton.textContent = "🚀 Старт";
+
+    document.getElementById("reactionText").textContent =
+
+        "Нажми «Старт» и жди сигнала.";
 
     document.querySelectorAll(".game-screen").forEach(function(screen) {
+
         screen.style.display = "none";
+
     });
 
     document.getElementById("menu").style.display = "block";
+
 }
 
+document.querySelectorAll(".game-card").forEach(function(card) {
 
-document.getElementById("catchCard").onclick = function() {
-    showGame("catchGame");
-};
+    card.addEventListener("click", function() {
 
+        let game = card.dataset.game;
 
-document.getElementById("guessCard").onclick = function() {
-    showGame("guessGame");
-    newGuess();
-};
+        showGame(game);
 
+        if (game === "guessGame") {
 
-document.getElementById("memoryCard").onclick = function() {
-    showGame("memoryGame");
-    startMemory();
-};
+            newGuess();
 
+        }
 
-document.getElementById("reactionCard").onclick = function() {
-    showGame("reactionGame");
-};
+        if (game === "memoryGame") {
 
+            startMemory();
+
+        }
+
+    });
+
+});
+
+document.querySelectorAll(".backMenu").
+    forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+        backToMenu();
+
+    });
+
+});
 
 function moveSquare() {
 
-    let field = document.getElementById("catchField");
-    let square = document.getElementById("square");
+    let field =
 
-    let maxX = field.clientWidth - square.clientWidth;
-    let maxY = field.clientHeight - square.clientHeight;
+        document.getElementById("catchField");
 
-    let x = Math.random() * maxX;
-    let y = Math.random() * maxY;
+    let square =
+
+        document.getElementById("square");
+
+    let maxX =
+
+        field.clientWidth - square.offsetWidth;
+
+    let maxY =
+
+        field.clientHeight - square.offsetHeight;
+
+    let x =
+
+        Math.random() * maxX;
+
+    let y =
+
+        Math.random() * maxY;
 
     square.style.left = x + "px";
+
     square.style.top = y + "px";
+
 }
 
+document.getElementById("square").addEventListener("click", function() {
 
-document.getElementById("square").onclick = function() {
+    if (!catchStarted) {
 
-    if (!started) {
+        catchStarted = true;
 
-        started = true;
-
-        timer = setInterval(function() {
+        catchTimer = setInterval(function() {
 
             time--;
 
-            document.getElementById("time").textContent = time;
+            document.getElementById("time").textContent =
+
+                time;
 
             if (time <= 0) {
 
-                clearInterval(timer);
-                started = false;
+                clearInterval(catchTimer);
+
+                catchStarted = false;
 
                 if (score > catchRecord) {
 
                     catchRecord = score;
 
                     localStorage.setItem(
+
                         "catchRecord",
+
                         catchRecord
+
                     );
 
-                    document.getElementById("catchRecord").textContent =
-                        catchRecord;
+                    document.getElementById(
+
+                        "catchRecord"
+
+                    ).textContent = catchRecord;
+
                 }
 
                 alert(
+
                     "⏰ Игра окончена!\n\n" +
+
                     "Твои очки: " +
+
                     score
+
                 );
+
             }
 
         }, 1000);
+
     }
 
     if (time <= 0) {
+
         return;
+
     }
 
     score++;
 
-    document.getElementById("score").textContent = score;
+    document.getElementById("score").textContent =
+
+        score;
 
     moveSquare();
-};
 
+});
 
-document.getElementById("restartCatchButton").onclick = function() {
+document.getElementById("restartCatch").addEventListener(
 
-    clearInterval(timer);
+    "click",
 
-    score = 0;
-    time = 30;
-    started = false;
+    function() {
 
-    document.getElementById("score").textContent = "0";
-    document.getElementById("time").textContent = "30";
+        clearInterval(catchTimer);
 
-    document.getElementById("square").style.left = "0px";
-    document.getElementById("square").style.top = "0px";
-};
+        score = 0;
 
+        time = 30;
 
-document.getElementById("backCatchButton").onclick = backToMenu;
-document.getElementById("backGuessButton").onclick = backToMenu;
-document.getElementById("backMemoryButton").onclick = backToMenu;
-document.getElementById("backReactionButton").onclick = backToMenu;
-        function newGuess() {
+        catchStarted = false;
 
-    secretNumber = Math.floor(Math.random() * 100) + 1;
+        document.getElementById("score").textContent =
 
-    document.getElementById("guessInput").value = "";
+            "0";
+
+        document.getElementById("time").textContent =
+
+            "30";
+
+        document.getElementById("square").style.left =
+
+            "0px";
+
+        document.getElementById("square").style.top =
+
+            "0px";
+
+    }
+
+);
+
+function newGuess() {
+
+    secretNumber =
+
+        Math.floor(Math.random() * 100) + 1;
+
+    document.getElementById("guessInput").value =
+
+        "";
 
     document.getElementById("guessResult").textContent =
+
         "🤔 Число загадано!";
+
 }
 
+document.getElementById("checkGuess").addEventListener(
 
-document.getElementById("checkGuessButton").onclick = function() {
+    "click",
 
-    let input = document.getElementById("guessInput");
-    let result = document.getElementById("guessResult");
+    function() {
 
-    if (input.value === "") {
+        let input =
 
-        result.textContent =
-            "⚠️ Сначала введи число.";
+            document.getElementById("guessInput");
 
-        return;
+        let result =
+
+            document.getElementById("guessResult");
+
+        if (input.value === "") {
+
+            result.textContent =
+
+                "⚠️ Сначала введи число.";
+
+            return;
+
+        }
+
+        let number =
+
+            Number(input.value);
+
+        if (number < 1 || number > 100) {
+
+            result.textContent =
+
+                "⚠️ Введи число от 1 до 100.";
+
+            return;
+
+        }
+
+        if (number === secretNumber) {
+
+            result.textContent =
+
+                "🎉 Правильно! Ты угадал!";
+
+        } else if (number < secretNumber) {
+
+            result.textContent =
+
+                "⬆️ Загаданное число больше.";
+
+        } else {
+
+            result.textContent =
+
+                "⬇️ Загаданное число меньше.";
+
+        }
+
     }
 
-    let number = Number(input.value);
+);
 
-    if (number < 1 || number > 100) {
+document.getElementById("newGuess").addEventListener(
 
-        result.textContent =
-            "⚠️ Введи число от 1 до 100.";
+    "click",
 
-        return;
+    function() {
+
+        newGuess();
+
     }
 
-    if (number === secretNumber) {
-
-        result.textContent =
-            "🎉 Правильно! Ты угадал!";
-
-    } else if (number < secretNumber) {
-
-        result.textContent =
-            "⬆️ Загаданное число больше.";
-
-    } else {
-
-        result.textContent =
-            "⬇️ Загаданное число меньше.";
-    }
-};
-
-
-document.getElementById("newGuessButton").onclick = function() {
-    newGuess();
-};
-
+);
 
 let memorySymbols = [
+
     "🍎", "🍎",
+
     "🍕", "🍕",
+
     "🚀", "🚀",
+
     "🐱", "🐱"
+
 ];
 
 let firstCard = null;
-let secondCard = null;
-let lockCards = false;
-let matchedPairs = 0;
 
+let secondCard = null;
+
+let lockCards = false;
+
+let matchedPairs = 0;
 
 function startMemory() {
 
-    let container = document.getElementById("memory");
+    let container =
+
+        document.getElementById("memory");
 
     container.innerHTML = "";
 
     firstCard = null;
+
     secondCard = null;
+
     lockCards = false;
+
     matchedPairs = 0;
 
-    let cards = [...memorySymbols];
+    let cards =
 
-    cards.sort(function() {
-        return Math.random() - 0.5;
-    });
+        memorySymbols.slice();
 
+    for (
+
+        let i = cards.length - 1;
+
+        i > 0;
+
+        i--
+
+    ) {
+
+        let j =
+
+            Math.
+            floor(Math.random() * (i + 1));
+
+        let temp = cards[i];
+
+        cards[i] = cards[j];
+
+        cards[j] = temp;
+
+    }
 
     cards.forEach(function(symbol) {
 
-        let card = document.createElement("div");
+        let card =
 
-        card.className = "card";
-        card.textContent = "❓";
-        card.dataset.symbol = symbol;
+            document.createElement("div");
 
+        card.className =
 
-        card.onclick = function() {
+            "card";
 
-            if (
-                lockCards ||
-                card === firstCard ||
-                card.textContent !== "❓"
-            ) {
-                return;
-            }
+        card.textContent =
 
-            card.textContent = symbol;
+            "❓";
 
+        card.dataset.symbol =
 
-            if (firstCard === null) {
+            symbol;
 
-                firstCard = card;
+        card.addEventListener(
 
-            } else {
+            "click",
 
-                secondCard = card;
-                lockCards = true;
+            function() {
 
+                if (
+
+                    lockCards ||
+
+                    card === firstCard ||
+
+                    card.textContent !== "❓"
+
+                ) {
+
+                    return;
+
+                }
+
+                card.textContent =
+
+                    symbol;
+
+                if (firstCard === null) {
+
+                    firstCard =
+
+                        card;
+
+                    return;
+
+                }
+
+                secondCard =
+
+                    card;
+
+                lockCards =
+
+                    true;
 
                 setTimeout(function() {
 
                     if (
+
                         firstCard.dataset.symbol ===
+
                         secondCard.dataset.symbol
+
                     ) {
 
-                        firstCard.style.visibility = "hidden";
-                        secondCard.style.visibility = "hidden";
+                        firstCard.style.visibility =
+
+                            "hidden";
+
+                        secondCard.style.visibility =
+
+                            "hidden";
 
                         matchedPairs++;
-
 
                         if (matchedPairs === 4) {
 
                             setTimeout(function() {
 
                                 alert(
+
                                     "🎉 Победа!\n\n" +
+
                                     "Ты нашёл все пары!"
+
                                 );
 
                             }, 200);
+
                         }
 
                     } else {
 
-                        firstCard.textContent = "❓";
-                        secondCard.textContent = "❓";
+                        firstCard.textContent =
+
+                            "❓";
+
+                        secondCard.textContent =
+
+                            "❓";
+
                     }
 
+                    firstCard =
 
-                    firstCard = null;
-                    secondCard = null;
-                    lockCards = false;
+                        null;
+
+                    secondCard =
+
+                        null;
+
+                    lockCards =
+
+                        false;
 
                 }, 700);
-            }
-        };
 
+            }
+
+        );
 
         container.appendChild(card);
+
     });
+
 }
 
+document.getElementById("restartMemory").addEventListener(
 
-document.getElementById("restartMemoryButton").onclick = function() {
-    startMemory();
-};
-        function startReaction() {
+    "click",
 
-    let button = document.getElementById("reactionButton");
-    let text = document.getElementById("reactionText");
+    function() {
 
-    clearTimeout(reactionTimer);
+        startMemory();
 
-    button.disabled = true;
-    button.textContent = "⏳ Жди...";
+    }
 
-    text.textContent =
-        "Не нажимай! Жди зелёного сигнала...";
+);
 
-    let delay = Math.random() * 3000 + 1500;
+document.getElementById("reactionButton").addEventListener(
 
+    "click",
 
-    reactionTimer = setTimeout(function() {
+    function() {
 
-        reactionStart = Date.now();
+        let button =
 
-        text.textContent = "🟢 ЖМИ!!!";
+            document.getElementById("reactionButton");
 
-        button.disabled = false;
-        button.textContent = "🔥 ЖМИ!";
+        let text =
 
+            document.getElementById("reactionText");
 
-        button.onclick = function() {
+        if (reactionWaiting) {
 
-            let reactionTime = Date.now() - reactionStart;
+            let reactionTime =
+
+                Date.now() - reactionStart;
+
+            reactionWaiting =
+
+                false;
 
             text.textContent =
+
                 "⚡ Твоя реакция: " +
+
                 reactionTime +
+
                 " мс";
 
-
             if (
+
                 reactionRecord === 0 ||
+
                 reactionTime < reactionRecord
+
             ) {
 
-                reactionRecord = reactionTime;
+                reactionRecord =
+
+                    reactionTime;
 
                 localStorage.setItem(
+
                     "reactionRecord",
+
                     reactionRecord
+
                 );
 
                 document.getElementById(
+
                     "reactionRecord"
+
                 ).textContent =
+
                     reactionRecord + " мс";
 
                 text.textContent +=
+
                     " 🏆 Новый рекорд!";
+
             }
 
+            button.disabled =
 
-            button.textContent = "🚀 Ещё раз";
+                false;
 
-            button.onclick = startReaction;
-        };
+            button.textContent =
 
-    }, delay);
-}
+                "🚀 Ещё раз";
 
+            return;
 
-document.getElementById("reactionButton").onclick = function() {
-    startReaction();
-};
+        }
 
-</script>
+        clearTimeout(reactionTimer);
+
+        button.disabled =
+
+            true;
+
+        button.textContent =
+
+            "⏳ Жди...";
+
+        text.textContent =
+
+            "Не нажимай! Жди зелёного сигнала...";
+
+        let delay =
+
+            Math.floor(Math.random() * 3000) + 1500;
+
+        reactionTimer =
+
+            setTimeout(function() {
+
+                reactionStart =
+                    Date.now();
+
+                reactionWaiting =
+
+                    true;
+
+                button.disabled =
+
+                    false;
+                </script>
 
 </body>
 </html>
 
-</div>
-
-</div>
-    
-
-    <div class="game-card" id="reactionCard">
+    </div>
