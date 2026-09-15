@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>🎮 MINI GAME HUB</title>
@@ -19,19 +16,19 @@ body {
     margin: 0;
     min-height: 100vh;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #09091a, #171735, #09091a);
+    background: linear-gradient(135deg, #080817, #171735, #080817);
     color: white;
     text-align: center;
 }
 
 header {
-    padding: 35px 20px 10px;
+    padding: 35px 20px 15px;
 }
 
 header h1 {
-    font-size: 48px;
+    font-size: 46px;
     margin: 10px;
-    text-shadow: 0 0 20px rgba(255,255,255,0.6);
+    text-shadow: 0 0 20px rgba(255,255,255,0.5);
 }
 
 header p {
@@ -49,37 +46,35 @@ header p {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    margin-top: 35px;
+    margin-top: 30px;
 }
 
 .game-card {
-    min-height: 150px;
-    padding: 25px;
-    border: 1px solid rgba(255,255,255,0.15);
+    padding: 28px 20px;
+    min-height: 170px;
     border-radius: 22px;
     background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
     cursor: pointer;
-    transition: 0.25s;
+    transition: 0.2s;
 }
 
 .game-card:hover {
-    transform: translateY(-7px) scale(1.02);
+    transform: translateY(-6px);
     background: rgba(255,255,255,0.14);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
 }
 
 .game-icon {
-    font-size: 45px;
+    font-size: 48px;
 }
 
 .game-card h2 {
-    margin: 10px 0 5px;
+    margin: 12px 0 6px;
 }
 
 .game-card p {
-    color: #aaa;
     margin: 0;
+    color: #aaa;
 }
 
 .game-screen {
@@ -95,17 +90,16 @@ header p {
 
 button {
     padding: 13px 22px;
-    margin: 7px;
+    margin: 8px;
     border: none;
     border-radius: 12px;
     font-size: 17px;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 button:hover {
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
 .back-button {
@@ -120,7 +114,7 @@ button:hover {
 
 .stat {
     font-size: 22px;
-    margin: 10px;
+    margin: 12px;
 }
 
 #catchField {
@@ -129,26 +123,27 @@ button:hover {
     height: 400px;
     margin: 25px auto;
     position: relative;
-    border: 2px solid rgba(255,255,255,0.4);
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.3);
     border-radius: 18px;
     background: rgba(255,255,255,0.04);
-    overflow: hidden;
 }
 
 #square {
     width: 55px;
     height: 55px;
     position: absolute;
+    left: 0;
+    top: 0;
     background: #3498ff;
     border-radius: 12px;
     cursor: pointer;
     box-shadow: 0 0 20px #3498ff;
-    transition: 0.08s;
 }
 
 input {
-    padding: 14px;
     width: 220px;
+    padding: 14px;
     border: none;
     border-radius: 10px;
     font-size: 18px;
@@ -177,22 +172,17 @@ input {
     border-radius: 14px;
     font-size: 35px;
     cursor: pointer;
-    transition: 0.2s;
-}
-
-.card:hover {
-    transform: scale(1.04);
 }
 
 #reactionButton {
-    min-width: 220px;
+    min-width: 230px;
     min-height: 80px;
     font-size: 25px;
 }
 
 #reactionText {
-    font-size: 24px;
     min-height: 40px;
+    font-size: 24px;
 }
 
 #records {
@@ -210,26 +200,28 @@ input {
 @media (max-width: 600px) {
 
     header h1 {
-        font-size: 36px;
+        font-size: 34px;
     }
 
     .games {
         grid-template-columns: 1fr;
     }
 
-    #memory {
-        grid-template-columns: repeat(4, 1fr);
+    .game-screen h1 {
+        font-size: 30px;
+    }
+
+    #catchField {
+        height: 350px;
     }
 
     .card {
         height: 70px;
         font-size: 28px;
     }
-
 }
 
 </style>
-
 </head>
 
 <body>
@@ -237,172 +229,148 @@ input {
 <div id="menu">
 
 <header>
-
-<h1>🎮 MINI GAME HUB</h1>
-
-<p>Четыре игры. Один портал. Проверь свои навыки.</p>
-
+    <h1>🎮 MINI GAME HUB</h1>
+    <p>Четыре игры. Один портал. Проверь свои навыки.</p>
 </header>
 
 <div class="games">
 
-<div class="game-card" onclick="openGame('catchGame')">
+    <div class="game-card" id="catchCard">
+        <div class="game-icon">🟦</div>
+        <h2>Лови квадрат</h2>
+        <p>Набери как можно больше очков.</p>
+    </div>
 
-<div class="game-icon">🟦</div>
+    <div class="game-card" id="guessCard">
+        <div class="game-icon">🔢</div>
+        <h2>Угадай число</h2>
+        <p>Найди загаданное число от 1 до 100.</p>
+    </div>
 
-<h2>Лови квадрат</h2>
-
-<p>Набери как можно больше очков за время.</p>
-
-</div>
-
-<div class="game-card" onclick="openGame('guessGame')">
-
-<div class="game-icon">🔢</div>
-
-<h2>Угадай число</h2>
-
-<p>Попробуй найти загаданное число.</p>
-
-</div>
-
-<div class="game-card" onclick="openGame('memoryGame')">
-
-<div class="game-icon">🧠</div>
-
-<h2>Память</h2>
-    <p>Найди все одинаковые пары.</p>
-
-</div>
-
-<div class="game-card" onclick="openGame('reactionGame')">
-
-<div class="game-icon">⚡</div>
-
-<h2>Реакция</h2>
-
-<p>Проверь, насколько быстро ты реагируешь.</p>
-
-</div>
+    <div class="game-card" id="memoryCard">
+        <div class="game-icon">🧠</div>
+        <h2>Память</h2>
+        <p>Найди все одинаковые пары.</p>
+    </div>
+    <div class="game-icon">⚡</div>
+        <h2>Реакция</h2>
+        <p>Проверь скорость своей реакции.</p>
+    </div>
 
 </div>
 
 <div id="records">
 
-<h2>🏆 Рекорды</h2>
+    <h2>🏆 Рекорды</h2>
 
-<div class="record-line">
-🟦 Лови квадрат: <span id="catchRecord">0</span>
-</div>
+    <div class="record-line">
+        🟦 Лови квадрат:
+        <span id="catchRecord">0</span>
+    </div>
 
-<div class="record-line">
-⚡ Реакция: <span id="reactionRecord">—</span>
-</div>
+    <div class="record-line">
+        ⚡ Реакция:
+        <span id="reactionRecord">—</span>
+    </div>
+    <div id="catchGame" class="game-screen">
 
-</div>
+    <h1>🟦 Лови квадрат</h1>
 
-</div>
-<div id="catchGame" class="game-screen">
+    <div class="stat">
+        Очки: <span id="score">0</span>
+    </div>
 
-<h1>🟦 Лови квадрат</h1>
+    <div class="stat">
+        Время: <span id="time">30</span> сек.
+    </div>
 
-<div class="stat">
-Очки: <span id="score">0</span>
-</div>
+    <div id="catchField">
+        <div id="square"></div>
+    </div>
 
-<div class="stat">
-Время: <span id="time">30</span> сек.
-</div>
+    <button class="restart-button" id="restartCatchButton">
+        🔄 Начать заново
+    </button>
 
-<div id="catchField">
-
-<div id="square"></div>
-
-</div>
-
-<button class="restart-button" onclick="restartCatch()">
-🔄 Начать заново
-</button>
-
-<button class="back-button" onclick="backToMenu()">
-⬅️ В меню
-</button>
+    <button class="back-button" id="backCatchButton">
+        ⬅️ В меню
+    </button>
 
 </div>
 
 
 <div id="guessGame" class="game-screen">
 
-<h1>🔢 Угадай число</h1>
+    <h1>🔢 Угадай число</h1>
 
-<p>Я загадал число от 1 до 100.</p>
+    <p>Я загадал число от 1 до 100.</p>
 
-<input
-    id="guessInput"
-    type="number"
-    min="1"
-    max="100"
-    placeholder="Введи число"
->
+    <input
+        id="guessInput"
+        type="number"
+        min="1"
+        max="100"
+        placeholder="Введи число"
+    >
 
-<br>
+    <br>
 
-<button onclick="checkGuess()">
-🔍 Проверить
-</button>
+    <button id="checkGuessButton">
+        🔍 Проверить
+    </button>
 
-<h2 id="guessResult"></h2>
+    <h2 id="guessResult"></h2>
 
-<button class="restart-button" onclick="newGuess()">
-🔄 Новое число
-</button>
+    <button class="restart-button" id="newGuessButton">
+        🔄 Новое число
+    </button>
 
-<button class="back-button" onclick="backToMenu()">
-⬅️ В меню
-</button>
+    <button class="back-button" id="backGuessButton">
+        ⬅️ В меню
+    </button>
 
 </div>
 
 
 <div id="memoryGame" class="game-screen">
 
-<h1>🧠 Память</h1>
+    <h1>🧠 Память</h1>
 
-<p>Найди все одинаковые пары.</p>
+    <p>Найди все одинаковые пары.</p>
 
-<div id="memory"></div>
+    <div id="memory"></div>
 
-<button class="restart-button" onclick="startMemory()">
-🔄 Начать заново
-</button>
+    <button class="restart-button" id="restartMemoryButton">
+        🔄 Начать заново
+    </button>
 
-<button class="back-button" onclick="backToMenu()">
-⬅️ В меню
-</button>
+    <button class="back-button" id="backMemoryButton">
+        ⬅️ В меню
+    </button>
 
 </div>
+
+
 <div id="reactionGame" class="game-screen">
 
-<h1>⚡ Проверь реакцию</h1>
+    <h1>⚡ Проверь реакцию</h1>
 
-<p id="reactionText">
-Нажми «Старт» и жди сигнала.
-</p>
+    <p id="reactionText">
+        Нажми «Старт» и жди сигнала.
+    </p>
 
-<button id="reactionButton" onclick="startReaction()">
-🚀 Старт
-</button>
+    <button id="reactionButton">
+        🚀 Старт
+    </button>
 
-<br>
+    <br>
 
-<button class="back-button" onclick="backToMenu()">
-⬅️ В меню
-</button>
+    <button class="back-button" id="backReactionButton">
+        ⬅️ В меню
+    </button>
 
 </div>
-
-
-<script>
+    <script>
 
 let score = 0;
 let time = 30;
@@ -414,21 +382,19 @@ let secretNumber = 0;
 let reactionStart = 0;
 let reactionTimer = null;
 
-let catchRecord =
-    Number(localStorage.getItem("catchRecord")) || 0;
-
-let reactionRecord =
-    Number(localStorage.getItem("reactionRecord")) || 0;
+let catchRecord = Number(localStorage.getItem("catchRecord")) || 0;
+let reactionRecord = Number(localStorage.getItem("reactionRecord")) || 0;
 
 
-document.getElementById("catchRecord").textContent =
-    catchRecord;
+document.getElementById("catchRecord").textContent = catchRecord;
 
 if (reactionRecord > 0) {
     document.getElementById("reactionRecord").textContent =
         reactionRecord + " мс";
 }
-function openGame(game) {
+
+
+function showGame(gameId) {
 
     document.getElementById("menu").style.display = "none";
 
@@ -436,21 +402,16 @@ function openGame(game) {
         screen.style.display = "none";
     });
 
-    document.getElementById(game).style.display = "block";
-
-    if (game === "guessGame") {
-        newGuess();
-    }
-
-    if (game === "memoryGame") {
-        startMemory();
-    }
+    document.getElementById(gameId).style.display = "block";
 }
 
 
 function backToMenu() {
 
     clearInterval(timer);
+    clearTimeout(reactionTimer);
+
+    started = false;
 
     document.querySelectorAll(".game-screen").forEach(function(screen) {
         screen.style.display = "none";
@@ -460,22 +421,59 @@ function backToMenu() {
 }
 
 
+document.getElementById("catchCard").onclick = function() {
+    showGame("catchGame");
+};
+
+
+document.getElementById("guessCard").onclick = function() {
+    showGame("guessGame");
+    newGuess();
+};
+
+
+document.getElementById("memoryCard").onclick = function() {
+    showGame("memoryGame");
+    startMemory();
+};
+
+
+document.getElementById("reactionCard").onclick = function() {
+    showGame("reactionGame");
+};
+
+
+function moveSquare() {
+
+    let field = document.getElementById("catchField");
+    let square = document.getElementById("square");
+
+    let maxX = field.clientWidth - square.clientWidth;
+    let maxY = field.clientHeight - square.clientHeight;
+
+    let x = Math.random() * maxX;
+    let y = Math.random() * maxY;
+
+    square.style.left = x + "px";
+    square.style.top = y + "px";
+}
+
+
 document.getElementById("square").onclick = function() {
 
-    if (started === false) {
+    if (!started) {
 
         started = true;
 
         timer = setInterval(function() {
 
-            time = time - 1;
+            time--;
 
             document.getElementById("time").textContent = time;
 
             if (time <= 0) {
 
                 clearInterval(timer);
-
                 started = false;
 
                 if (score > catchRecord) {
@@ -492,7 +490,8 @@ document.getElementById("square").onclick = function() {
                 }
 
                 alert(
-                    "⏰ Игра окончена!\n\nТвои очки: " +
+                    "⏰ Игра окончена!\n\n" +
+                    "Твои очки: " +
                     score
                 );
             }
@@ -504,25 +503,15 @@ document.getElementById("square").onclick = function() {
         return;
     }
 
-    score = score + 1;
+    score++;
 
     document.getElementById("score").textContent = score;
 
-    let field = document.getElementById("catchField");
-    let square = document.getElementById("square");
-
-    let maxX = field.clientWidth - square.clientWidth;
-    let maxY = field.clientHeight - square.clientHeight;
-
-    let x = Math.random() * maxX;
-    let y = Math.random() * maxY;
-
-    square.style.left = x + "px";
-    square.style.top = y + "px";
+    moveSquare();
 };
 
 
-function restartCatch() {
+document.getElementById("restartCatchButton").onclick = function() {
 
     clearInterval(timer);
 
@@ -535,11 +524,16 @@ function restartCatch() {
 
     document.getElementById("square").style.left = "0px";
     document.getElementById("square").style.top = "0px";
-}
-function newGuess() {
+};
 
-    secretNumber =
-        Math.floor(Math.random() * 100) + 1;
+
+document.getElementById("backCatchButton").onclick = backToMenu;
+document.getElementById("backGuessButton").onclick = backToMenu;
+document.getElementById("backMemoryButton").onclick = backToMenu;
+document.getElementById("backReactionButton").onclick = backToMenu;
+        function newGuess() {
+
+    secretNumber = Math.floor(Math.random() * 100) + 1;
 
     document.getElementById("guessInput").value = "";
 
@@ -548,15 +542,10 @@ function newGuess() {
 }
 
 
-function checkGuess() {
+document.getElementById("checkGuessButton").onclick = function() {
 
-    let input =
-        document.getElementById("guessInput");
-
-    let result =
-        document.getElementById("guessResult");
-
-    let number = Number(input.value);
+    let input = document.getElementById("guessInput");
+    let result = document.getElementById("guessResult");
 
     if (input.value === "") {
 
@@ -565,6 +554,8 @@ function checkGuess() {
 
         return;
     }
+
+    let number = Number(input.value);
 
     if (number < 1 || number > 100) {
 
@@ -589,8 +580,15 @@ function checkGuess() {
         result.textContent =
             "⬇️ Загаданное число меньше.";
     }
-}
-let memoryCards = [
+};
+
+
+document.getElementById("newGuessButton").onclick = function() {
+    newGuess();
+};
+
+
+let memorySymbols = [
     "🍎", "🍎",
     "🍕", "🍕",
     "🚀", "🚀",
@@ -605,8 +603,7 @@ let matchedPairs = 0;
 
 function startMemory() {
 
-    let container =
-        document.getElementById("memory");
+    let container = document.getElementById("memory");
 
     container.innerHTML = "";
 
@@ -615,21 +612,19 @@ function startMemory() {
     lockCards = false;
     matchedPairs = 0;
 
-    let shuffledCards =
-        [...memoryCards].sort(function() {
-            return Math.random() - 0.5;
-        });
+    let cards = [...memorySymbols];
+
+    cards.sort(function() {
+        return Math.random() - 0.5;
+    });
 
 
-    shuffledCards.forEach(function(symbol) {
+    cards.forEach(function(symbol) {
 
-        let card =
-            document.createElement("div");
+        let card = document.createElement("div");
 
         card.className = "card";
-
         card.textContent = "❓";
-
         card.dataset.symbol = symbol;
 
 
@@ -643,7 +638,6 @@ function startMemory() {
                 return;
             }
 
-
             card.textContent = symbol;
 
 
@@ -654,7 +648,6 @@ function startMemory() {
             } else {
 
                 secondCard = card;
-
                 lockCards = true;
 
 
@@ -665,13 +658,10 @@ function startMemory() {
                         secondCard.dataset.symbol
                     ) {
 
-                        firstCard.style.visibility =
-                            "hidden";
+                        firstCard.style.visibility = "hidden";
+                        secondCard.style.visibility = "hidden";
 
-                        secondCard.style.visibility =
-                            "hidden";
-
-                        matchedPairs = matchedPairs + 1;
+                        matchedPairs++;
 
 
                         if (matchedPairs === 4) {
@@ -689,7 +679,6 @@ function startMemory() {
                     } else {
 
                         firstCard.textContent = "❓";
-
                         secondCard.textContent = "❓";
                     }
 
@@ -708,28 +697,23 @@ function startMemory() {
 }
 
 
-function startReaction() {
+document.getElementById("restartMemoryButton").onclick = function() {
+    startMemory();
+};
+        function startReaction() {
 
-    let button =
-        document.getElementById("reactionButton");
-
-    let text =
-        document.getElementById("reactionText");
-
+    let button = document.getElementById("reactionButton");
+    let text = document.getElementById("reactionText");
 
     clearTimeout(reactionTimer);
 
-
     button.disabled = true;
-
     button.textContent = "⏳ Жди...";
 
     text.textContent =
         "Не нажимай! Жди зелёного сигнала...";
 
-
-    let delay =
-        Math.random() * 3000 + 1500;
+    let delay = Math.random() * 3000 + 1500;
 
 
     reactionTimer = setTimeout(function() {
@@ -739,15 +723,12 @@ function startReaction() {
         text.textContent = "🟢 ЖМИ!!!";
 
         button.disabled = false;
-
         button.textContent = "🔥 ЖМИ!";
 
 
         button.onclick = function() {
 
-            let reactionTime =
-                Date.now() - reactionStart;
-
+            let reactionTime = Date.now() - reactionStart;
 
             text.textContent =
                 "⚡ Твоя реакция: " +
@@ -767,24 +748,37 @@ function startReaction() {
                     reactionRecord
                 );
 
-
                 document.getElementById(
                     "reactionRecord"
                 ).textContent =
                     reactionRecord + " мс";
-
 
                 text.textContent +=
                     " 🏆 Новый рекорд!";
             }
 
 
-            button.textContent =
-                "🚀 Ещё раз";
+            button.textContent = "🚀 Ещё раз";
 
-            button.onclick =
-                startReaction;
+            button.onclick = startReaction;
         };
 
     }, delay);
 }
+
+
+document.getElementById("reactionButton").onclick = function() {
+    startReaction();
+};
+
+</script>
+
+</body>
+</html>
+
+</div>
+
+</div>
+    
+
+    <div class="game-card" id="reactionCard">
